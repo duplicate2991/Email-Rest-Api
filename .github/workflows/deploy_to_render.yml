@@ -1,0 +1,16 @@
+name: Conditional Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: "Wanna deploy to vercel?? yes : no?"
+        required: true
+        default: "no"
+
+jobs:
+  check:
+    if: github.event.inputs.deploy == 'yes'
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "🚀 Deploy triggered manually"
