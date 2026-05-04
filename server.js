@@ -21,7 +21,7 @@ process.on('unhandledRejection', (err) => {
 });
 
 // ===== CLUSTER MODE =====
-if (cluster.isPrimary) {
+/*if (cluster.isPrimary) {
   logger.info(`\x1b[92m🚀 Primary process ${process.pid} is running\x1b[0m`);
   logger.info(`\x1b[96m🏁 Starting ${numCPUs} workers...\x1b[0m`);
 
@@ -59,4 +59,4 @@ if (cluster.isPrimary) {
 
   process.on('SIGINT', shutdown);
   process.on('SIGTERM', shutdown);
-}
+}*/
