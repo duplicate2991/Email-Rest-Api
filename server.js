@@ -60,3 +60,7 @@ process.on('unhandledRejection', (err) => {
   process.on('SIGINT', shutdown);
   process.on('SIGTERM', shutdown);
 }*/
+
+const server = app.listen(PORT, () => {
+    logger.info(`Worker ${process.pid} started on port ${PORT}`);
+});
