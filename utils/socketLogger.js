@@ -6,11 +6,11 @@ const socket = io(process.env["logger_server"], {
 });
 
 socket.on('connect', () => {
-  console.log(`✅ Connected to log server: ${process.pid}`);
+  console.log(`\x1b[36m✅ Connected to log server: ${process.pid}\x1b[0m`);
 });
 
 socket.on('disconnect', () => {
-  console.log(`❌ Disconnected from log server: ${process.pid}`);
+  console.log(`\x1b[93m❌ Disconnected from log server: ${process.pid}\x1b[0m`);
 });
 
 const sendLog = (level, message, meta = {}) => {
