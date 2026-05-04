@@ -5,7 +5,7 @@ exports.createUser = (data) => {
   const newUser = { id: id++, ...data };
   users.push(newUser);
   console.log("New user created");
-  console.log(newUser);
+  console.log(JSON.stringify(newUser, null, 2));
   return newUser;
 };
 
