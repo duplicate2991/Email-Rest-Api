@@ -4,6 +4,8 @@ let id = 1;
 exports.createUser = (data) => {
   const newUser = { id: id++, ...data };
   users.push(newUser);
+  console.log("New user created");
+  console.log(newUser);
   return newUser;
 };
 
