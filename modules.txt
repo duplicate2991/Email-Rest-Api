@@ -5,3 +5,4 @@ morgan
 joi 
 express-rate-limit
 winston
+socket.io-client
