@@ -15,7 +15,7 @@ app.use(cors());
 app.use(helmet());
 //app.use(morgan('dev'));
 app.use(
-  morgan('combined', {
+  morgan('dev', {
     stream: {
       write: (message) => {
         console.log(message.trim());
