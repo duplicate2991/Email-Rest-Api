@@ -1,3 +1,4 @@
+require('./utils/overrideConsole');
 const cluster = require('cluster');
 const os = require('os');
 const process = require('process');
