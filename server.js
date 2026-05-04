@@ -22,8 +22,8 @@ process.on('unhandledRejection', (err) => {
 
 // ===== CLUSTER MODE =====
 if (cluster.isPrimary) {
-  logger.info(`Primary process ${process.pid} is running`);
-  logger.info(`Starting ${numCPUs} workers...`);
+  logger.info(`\x1b[92m🚀 Primary process ${process.pid} is running\x1b[0m`);
+  logger.info(`\x1b[96m🏁 Starting ${numCPUs} workers...\x1b[0m`);
 
   for (let i = 0; i < numCPUs; i++) {
     cluster.fork();
