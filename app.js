@@ -5,7 +5,7 @@ const morgan = require('morgan');
 
 const routes = require('./routes/v1');
 const errorHandler = require('./middlewares/error.middleware');
-const rateLimiter = require('./middlewares/rateLimit.middleware');
+//const rateLimiter = require('./middlewares/rateLimit.middleware');
 
 const app = express();
 
@@ -23,7 +23,7 @@ app.use(
     }
   })
 );
-app.use(rateLimiter);
+//app.use(rateLimiter);
 
 app.use('/api/v1', routes);
 
