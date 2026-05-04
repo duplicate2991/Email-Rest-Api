@@ -27,6 +27,10 @@ app.use(rateLimiter);
 
 app.use('/api/v1', routes);
 
+app.get("/error", (req, res) => {
+  res.render("index");
+});
+
 // 404 handler
 app.use((req, res, next) => {
   res.status(404).json({ success: false, message: 'Route not found' });
