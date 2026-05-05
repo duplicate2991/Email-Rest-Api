@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Email Tester</title>
+    <style>
+        body {
+            font-family: Arial;
+            padding: 20px;
+        }
+        input, button {
+            display: block;
+            margin: 10px 0;
+            padding: 10px;
+            width: 300px;
+        }
+        pre {
+            background: #111;
+            color: #0f0;
+            padding: 15px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Email App Password Tester</h2>
+
+<input type="email" id="email" placeholder="Enter your email">
+<input type="password" id="password" placeholder="Enter app password">
+
+<button onclick="sendMail()">Send Test Email</button>
+
+<h3>Logs:</h3>
+<pre id="logs"></pre>
+
+<script>
+async function sendMail() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    const logsEl = document.getElementById("logs");
+    logsEl.textContent = "Sending request...\n";
+
+    try {
+        const res = await fetch("/send", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ email, password })
+        });
+
+        const data = await res.json();
+
+        logsEl.textContent = data.logs.join("\n");
+
+    } catch (err) {
+        logsEl.textContent += "\nError: " + err.message;
+    }
+}
+</script>
+
+</body>
+</html>
