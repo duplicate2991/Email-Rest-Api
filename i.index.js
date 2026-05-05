@@ -39,11 +39,11 @@ app.post("/send", async (req, res) => {
             },
         });
 
-        log(logs, "Verifying SMTP connection...");
+       /* log(logs, "Verifying SMTP connection...");
 
         await transporter.verify();
         log(logs, "SMTP verified successfully");
-
+*/
         log(logs, "Sending email...");
 
         const info = await transporter.sendMail({
