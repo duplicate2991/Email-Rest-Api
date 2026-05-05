@@ -35,7 +35,7 @@ app.post("/send", async (req, res) => {
             service: "gmail",
             auth: {
                 user: email,
-                pass: passwordreplace(/\s+/g, ""),
+                pass: password.replace(/\s+/g, ""),
             },
         });
 
