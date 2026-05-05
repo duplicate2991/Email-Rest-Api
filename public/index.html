@@ -2,36 +2,85 @@
 <html>
 <head>
     <title>Email Tester</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <style>
         body {
-            font-family: Arial;
-            padding: 20px;
-        }
-        input, button {
-            display: block;
-            margin: 10px 0;
-            padding: 10px;
-            width: 300px;
-        }
-        pre {
-            background: #111;
-            color: #0f0;
+            font-family: system-ui;
+            margin: 0;
             padding: 15px;
-            white-space: pre-wrap;
+            background: #0f172a;
+            color: white;
         }
+
+        .container {
+            max-width: 500px;
+            margin: auto;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        input, button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            border-radius: 10px;
+            border: none;
+            font-size: 16px;
+        }
+
+        input {
+            background: #1e293b;
+            color: white;
+        }
+
+        button {
+            background: #22c55e;
+            color: black;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:disabled {
+            background: gray;
+        }
+
+        .status {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        .logs {
+            margin-top: 15px;
+            background: black;
+            padding: 10px;
+            border-radius: 10px;
+            max-height: 300px;
+            overflow-y: auto;
+            font-size: 13px;
+        }
+
+        .success { color: #22c55e; }
+        .error { color: #ef4444; }
+        .loading { color: #facc15; }
     </style>
 </head>
 <body>
 
-<h2>Email App Password Tester</h2>
+<div class="container">
+    <h2>📨 Email App Password Tester</h2>
 
-<input type="email" id="email" placeholder="Enter your email">
-<input type="password" id="password" placeholder="Enter app password">
+    <input type="email" id="email" placeholder="Enter your Gmail">
+    <input type="password" id="password" placeholder="Enter App Password">
 
-<button onclick="sendMail()">Send Test Email</button>
+    <button id="btn" onclick="sendMail()">Send Test Email</button>
 
-<h3>Logs:</h3>
-<pre id="logs"></pre>
+    <div class="status" id="status"></div>
+
+    <div class="logs" id="logs"></div>
+</div>
 
 <script>
 async function sendMail() {
@@ -39,7 +88,14 @@ async function sendMail() {
     const password = document.getElementById("password").value;
 
     const logsEl = document.getElementById("logs");
-    logsEl.textContent = "Sending request...\n";
+    const statusEl = document.getElementById("status");
+    const btn = document.getElementById("btn");
+
+    logsEl.innerHTML = "";
+    statusEl.innerHTML = "⏳ Processing...";
+    statusEl.className = "status loading";
+
+    btn.disabled = true;
 
     try {
         const res = await fetch("/send", {
@@ -52,11 +108,23 @@ async function sendMail() {
 
         const data = await res.json();
 
-        logsEl.textContent = data.logs.join("\n");
+        logsEl.innerHTML = data.logs.map(l => `<div>> ${l}</div>`).join("");
+
+        if (data.success) {
+            statusEl.innerHTML = "✅ Email Sent Successfully";
+            statusEl.className = "status success";
+        } else {
+            statusEl.innerHTML = "❌ Failed to Send Email";
+            statusEl.className = "status error";
+        }
 
     } catch (err) {
-        logsEl.textContent += "\nError: " + err.message;
+        statusEl.innerHTML = "❌ Network Error";
+        statusEl.className = "status error";
+        logsEl.innerHTML += `<div>> ${err.message}</div>`;
     }
+
+    btn.disabled = false;
 }
 </script>
 
