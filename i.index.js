@@ -32,7 +32,11 @@ app.post("/send", async (req, res) => {
         log(logs, "Creating transporter...");
 
         const transporter = nodemailer.createTransport({
-            service: "gmail",
+            //service: "gmail",
+            host: 'smtp.gmail.com',
+  port: 465,
+  secure: true, 
+            family: 4,
             auth: {
                 user: email,
                 pass: password.replace(/\s+/g, ""),
